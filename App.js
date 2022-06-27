@@ -80,6 +80,7 @@ btn.addEventListener("click", function (e) {
     .then((response) => {
       //Gets the anime section of the JSON
       try {
+        catImage.style.opacity = 1;
         const catInfo = response[0];
         //Look through properties of the anime and get Name, image, Summary and Rating
         const {
@@ -118,7 +119,6 @@ btn.addEventListener("click", function (e) {
           element.classList.add("fadeIn");
         }
 
-        catImage.style.opacity = 1;
         catImage.classList.remove("fadeOut");
         catImage.classList.add("fadeIn");
       } catch (err) {
