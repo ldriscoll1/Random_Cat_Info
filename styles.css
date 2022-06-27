@@ -58,7 +58,6 @@ Variables
 Global Styles
 ===============
 */
-
 *,
 ::after,
 ::before {
@@ -104,6 +103,7 @@ h4 {
 p {
   margin-bottom: 1.25rem;
   color: var(--clr-grey-5);
+  font-size: 1.5rem;
 }
 @media screen and (min-width: 800px) {
   h1 {
@@ -111,6 +111,9 @@ p {
   }
   h2 {
     font-size: 2.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
   }
   h3 {
     font-size: 1.75rem;
@@ -156,7 +159,15 @@ main {
 Counter
 ===============
 */
-
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+.text {
+  font-size: 1.5rem;
+}
 main {
   min-height: 100vh;
   display: grid;
@@ -192,7 +203,7 @@ main {
   display: 0;
 }
 .img {
-  width: 200px;
-  height: 300px;
-  display: 0;
+  width: 400px;
+  height: 400px;
+  opacity: 0;
 }

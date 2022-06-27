@@ -1,75 +1,93 @@
 "use strict";
 //Getting Data from html
-const btns = document.querySelectorAll(".btn");
-const animeName = document.querySelector("#name");
-const animeImage = document.querySelector("#image");
-const animeDescription = document.querySelector("#description");
-const animeRating = document.querySelector("#rating");
+const btn = document.querySelector(".btn");
+const catBreed = document.querySelector("#breed");
+const catImage = document.querySelector("#image");
+const textFamilyFriendly = document.querySelector("#familyFriendly");
+const textShedding = document.querySelector("#shedding");
+const textHealth = document.querySelector("#health");
+const textPlayfulness = document.querySelector("#playfulness");
+const textMeowing = document.querySelector("#meowing");
+const textGrooming = document.querySelector("#grooming");
+const textintelligence = document.querySelector("#intelligence");
+const textlifeExpectency = document.querySelector("#lifeExpectency");
+const textOrigin = document.querySelector("#origin");
+const textLength = document.querySelector("#length");
+const textWeight = document.querySelector("#minWeight");
+const texts = document.querySelectorAll(".text");
+let catBreeds = ["aegean", "ragdoll", "persian"];
+
+for (const element of texts) {
+  element.style.opacity = 0;
+}
 //Adding in Button Functionality
-btns.forEach(function (btn) {
-  btn.addEventListener("click", function (e) {
-    const styles = e.currentTarget.classList;
-    //Setting Up Fetch
+btn.addEventListener("click", function (e) {
+  for (const element of texts) {
+    element.style.opacity = 0;
+  }
+  const styles = e.currentTarget.classList;
+  //Setting Up Fetch
+  //Get random catnam
+  const randomPosition = Math.floor(Math.random() * catBreeds.length);
+  const randomBreed = catBreeds.at(randomPosition);
+  const url =
+    "https://cats-by-api-ninjas.p.rapidapi.com/v1/cats" +
+    "?name=" +
+    randomBreed;
+  //Waiting Image
+  catImage.style.opacity = 100;
+  catImage.src =
+    "http://phette23.github.io/speed-is-a-feature/img/loadingBar.gif";
 
-    //Adds the URL for the different genres
-    const genreToUrlDict = {
-      action: "1",
-      adventure: "2",
-      comedy: "4",
-      mystery: "7",
-      drama: "8",
-      fantasy: "10",
-    };
-    //Computing Genre based on button pressed and genre
-    const genre = styles[1];
-    const genreURL = genreToUrlDict[genre];
-    const url = "https://jikan1.p.rapidapi.com/genre/anime/" + genreURL + "/1";
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "x-rapidapi-host": "cats-by-api-ninjas.p.rapidapi.com",
+      "x-rapidapi-key": "951da403b2msh53d85db6b32d03ap199da6jsn3fb0e83fb11e",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      //Gets the anime section of the JSON
+      try {
+        const catInfo = response[0];
+        //Look through properties of the anime and get Name, image, Summary and Rating
+        const {
+          image_link = "",
+          name = "",
+          length = "",
+          origin = "",
+          family_friendly = "",
+          shedding = "",
+          general_health = "",
+          playfulness = "",
+          meowing = "",
+          grooming = "",
+          intelligence = "",
+          min_weight = "",
+          min_life_expectancy: life_expectancy = "",
+        } = catInfo;
 
-    //Waiting Image
-    animeImage.src =
-      "http://phette23.github.io/speed-is-a-feature/img/loadingBar.gif";
-    animeDescription.classList.add(".hidden");
-    animeName.classList.add(".hidden");
-    animeRating.classList.add(".hidden");
-
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "jikan1.p.rapidapi.com",
-        "x-rapidapi-key": "07cb6ccf43mshc70113667ee75b6p111a42jsn46be7a8b4a23",
-      },
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        //Gets the anime section of the JSON
-        try {
-          const { anime: animeOptions = undefined } = response;
-          const randomPosition = Math.floor(Math.random() * 100);
-          //Error Detection
-          //Checks if animeOptions = {}
-          if (animeOptions == undefined) throw "Anime Option Not Found";
-
-          //Gets anime at random position
-          const { [randomPosition]: animeDetails = undefined } = animeOptions;
-          //Error Detection
-          //Checks if animeDetails = {}
-          if (animeDetails == undefined) throw "Anime Details Not Found";
-
-          //Look through properties of the anime and get Name, image, Summary and Rating
-          const { image_url = "" } = animeDetails;
-          const { title = "" } = animeDetails;
-          const { synopsis: description = "" } = animeDetails;
-          const { score: rating = 0 } = animeDetails;
-
-          animeName.textContent = `${title}`;
-          animeImage.src = `${image_url}`;
-          animeImage.alt = `${image_url}`;
-          animeDescription.textContent = `${description}`;
-          animeRating.textContent = `Rating: ${rating}`;
-        } catch (err) {
-          alert(`Error: ${err}`);
+        catBreed.textContent = `${name}`;
+        catImage.src = `${image_link}`;
+        catImage.alt = `${image_link}`;
+        textFamilyFriendly.textContent = `Family Friendly: ${family_friendly} `;
+        textShedding.textContent = `Shedding: ${shedding} `;
+        textHealth.textContent = `Health: ${general_health} `;
+        textPlayfulness.textContent = `Playfullness: ${playfulness} `;
+        textMeowing.textContent = `Meowing: ${meowing} `;
+        textGrooming.textContent = `Grooming: ${grooming} `;
+        textintelligence.textContent = `Intelligence: ${intelligence} `;
+        textlifeExpectency.textContent = `Life Expectancy: ${life_expectancy} `;
+        textOrigin.textContent = `Origin: ${origin} `;
+        textLength.textContent = `Length: ${length} `;
+        textWeight.textContent = `Weight: ${min_weight} `;
+        for (const element of texts) {
+          element.style.opacity = 100;
         }
-      })
-      .catch((error) => (animeName.textContent = "Error"));
-  });
+      } catch (err) {
+        alert(`Error: ${err}`);
+      }
+    })
+    .catch((error) => (animeName.textContent = "Error"));
 });
