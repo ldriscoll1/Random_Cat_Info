@@ -14,6 +14,7 @@ const textlifeExpectency = document.querySelector("#lifeExpectency");
 const textOrigin = document.querySelector("#origin");
 const textLength = document.querySelector("#length");
 const textWeight = document.querySelector("#minWeight");
+const textRating = document.querySelector("#rating");
 const texts = document.querySelectorAll(".text");
 const catBreeds = [
   "aegean",
@@ -44,12 +45,14 @@ const catBreeds = [
 ];
 
 for (const element of texts) {
-  element.style.opacity = 0;
+  element.classList.add("fadeOut");
 }
+
 //Adding in Button Functionality
 btn.addEventListener("click", function (e) {
   for (const element of texts) {
-    element.style.opacity = 0;
+    element.classList.add("fadeOut");
+    element.classList.remove("fadeIn");
   }
   const styles = e.currentTarget.classList;
   //Setting Up Fetch
@@ -61,7 +64,8 @@ btn.addEventListener("click", function (e) {
     "?name=" +
     randomBreed;
   //Waiting Image
-  catImage.style.opacity = 100;
+  catImage.classList.add("fadeOut");
+  catImage.classList.remove("fadeIn");
   catImage.src =
     "http://phette23.github.io/speed-is-a-feature/img/loadingBar.gif";
 
@@ -108,9 +112,15 @@ btn.addEventListener("click", function (e) {
         textOrigin.textContent = `Origin: ${origin} `;
         textLength.textContent = `Length: ${length} `;
         textWeight.textContent = `Weight: ${min_weight} `;
+        textRating.textContent = "Rating";
         for (const element of texts) {
-          element.style.opacity = 100;
+          element.classList.remove("fadeOut");
+          element.classList.add("fadeIn");
         }
+
+        catImage.style.opacity = 1;
+        catImage.classList.remove("fadeOut");
+        catImage.classList.add("fadeIn");
       } catch (err) {
         alert(`Error: ${err}`);
       }
