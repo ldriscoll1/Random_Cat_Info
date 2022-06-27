@@ -15,7 +15,33 @@ const textOrigin = document.querySelector("#origin");
 const textLength = document.querySelector("#length");
 const textWeight = document.querySelector("#minWeight");
 const texts = document.querySelectorAll(".text");
-let catBreeds = ["aegean", "ragdoll", "persian"];
+const catBreeds = [
+  "aegean",
+  "ragdoll",
+  "persian",
+  "Sphynx",
+  "Abyssinian",
+  "Asian",
+  "Balinese",
+  "Bambino",
+  "Bengal",
+  "Birman",
+  "Bombay",
+  "Burmese",
+  "Burmilla",
+  "Chartreux",
+  "Chausie",
+  "Cyprus",
+  "Foldex",
+  "Korat",
+  "LaPerm",
+  "Ocicat",
+  "Serengeti",
+  "Siamese",
+  "Snowshoe",
+  "Somali",
+  "Toyger",
+];
 
 for (const element of texts) {
   element.style.opacity = 0;
@@ -68,7 +94,7 @@ btn.addEventListener("click", function (e) {
           min_life_expectancy: life_expectancy = "",
         } = catInfo;
 
-        catBreed.textContent = `${name}`;
+        catBreed.textContent = `${name} Cat`;
         catImage.src = `${image_link}`;
         catImage.alt = `${image_link}`;
         textFamilyFriendly.textContent = `Family Friendly: ${family_friendly} `;
