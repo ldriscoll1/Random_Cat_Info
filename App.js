@@ -69,11 +69,12 @@ btn.addEventListener("click", function (e) {
   catImage.src =
     "http://phette23.github.io/speed-is-a-feature/img/loadingBar.gif";
 
+  var key = config.SECRET_API_KEY;
   fetch(url, {
     method: "GET",
     headers: {
       "x-rapidapi-host": "cats-by-api-ninjas.p.rapidapi.com",
-      "x-rapidapi-key": "951da403b2msh53d85db6b32d03ap199da6jsn3fb0e83fb11e",
+      "x-rapidapi-key": key,
     },
   })
     .then((res) => res.json())
